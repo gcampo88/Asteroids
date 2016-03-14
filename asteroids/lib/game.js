@@ -2,9 +2,9 @@
 
   var Asteroids = root.Asteroids = root.Asteroids || {};
 
-  Asteroids.Game = function () {
-    this.DIM_X = 600;
-    this.DIM_Y = 600;
+  Asteroids.Game = function (dimX, dimY) {
+    this.DIM_X = dimX;
+    this.DIM_Y = dimY;
     this.NUM_ASTEROIDS = 5;
     this.asteroids = [];
     this.bullets = [];
@@ -34,7 +34,6 @@
   };
 
   Asteroids.Game.prototype.draw = function (ctx) {
-    ctx.clearRect(0, 0, this.DIM_X, this.DIM_Y);
     this.allObjects().forEach(function (el) {
       el.draw.call(el, ctx);
     });
@@ -51,7 +50,7 @@
       return true;
     } else {
       return false;
-    }  
+    }
   };
 
   Asteroids.Game.prototype.wrap = function (pos) {

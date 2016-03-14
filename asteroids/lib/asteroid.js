@@ -4,8 +4,8 @@
 
  Asteroids.Asteroid = function (argsHash) {
    argsHash.vel = Asteroids.Util.randomVec(2);
-   argsHash.color = "#9932CC";
-   argsHash.radius = 15;
+   argsHash.color = "#FF0000";
+   argsHash.radius = Math.max((Math.random() * 30), 10);
    Asteroids.MovingObject.call(this, argsHash);
  };
 

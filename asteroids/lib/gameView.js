@@ -7,9 +7,11 @@
     this.ctx = ctx;
   };
 
-  Asteroids.GameView.prototype.start = function () {
+  Asteroids.GameView.prototype.start = function (img) {
     this.bindKeyHandlers();
     root.setInterval( function () {
+      this.ctx.clearRect(0, 0, this.game.DIM_X, this.game.DIM_Y);
+      this.ctx.drawImage(img, 0, 0, this.game.DIM_X, this.game.DIM_Y);
       this.game.draw(this.ctx);
       this.game.step();
     }.bind(this), 16);

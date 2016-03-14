@@ -3,8 +3,8 @@
   var Asteroids = root.Asteroids = root.Asteroids || {};
 
   Asteroids.Bullet = function (argsHash) {
-    argsHash.color = "#41A317";
-    argsHash.radius = 2;
+    argsHash.color = "#FFFFFF";
+    argsHash.radius = 4;
     Asteroids.MovingObject.call(this, argsHash);
   };
 
