@@ -15,6 +15,10 @@
    if (otherObject instanceof Asteroids.Ship) {
      otherObject.relocate();
    }
+   if (otherObject instanceof Asteroids.Bullet) {
+     this.game.remove(this);
+     this.game.remove(otherObject);
+   }
  };
 
 

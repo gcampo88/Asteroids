@@ -21,5 +21,34 @@
      this.vel[1] + impulse[1]];
  };
 
+ Asteroids.Ship.prototype.fireBullet = function () {
+   var newBullet = new Asteroids.Bullet( {pos: this.pos,
+     vel: this.bulletVel(), game: this.game});
+   this.game.addBullet(newBullet);
+ };
+
+ Asteroids.Ship.prototype.bulletVel = function () {
+  var velocityMagnitude = Math.sqrt(Math.pow(this.vel[0], 2) + Math.pow(this.vel[1],2));
+  var unitVelocity = [this.vel[0] / velocityMagnitude, this.vel[1] / velocityMagnitude];
+  return [unitVelocity[0] * 10, unitVelocity[1] * 10];
+ };
+
 
 })(this);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//

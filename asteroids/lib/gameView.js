@@ -28,7 +28,9 @@
     key('down', function () {
       this.game.ship.power([0,1]);
     }.bind(this));
-
+    key('space', function () {
+      this.game.ship.fireBullet();
+    }.bind(this));
   };
 
 })(this);
