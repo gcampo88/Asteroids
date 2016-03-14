@@ -8,6 +8,7 @@
     this.NUM_ASTEROIDS = 5;
     this.asteroids = [];
     this.addAsteroids();
+    this.ship = new Asteroids.Ship( {pos: this.randomPos(), game: this} );
   };
 
   Asteroids.Game.prototype.randomPos = function () {
@@ -18,34 +19,81 @@
   Asteroids.Game.prototype.addAsteroids = function () {
     for (i = 0; i < this.NUM_ASTEROIDS; i ++) {
       var position =  this.randomPos();
-      var newAsteroid = new Asteroids.Asteroid( {pos: position });
+      var newAsteroid = new Asteroids.Asteroid( {pos: position, game: this });
       this.asteroids.push(newAsteroid);
     }
   };
 
+  Asteroids.Game.prototype.allObjects = function () {
+    return this.asteroids.concat([this.ship]);
+  };
+
   Asteroids.Game.prototype.draw = function (ctx) {
     ctx.clearRect(0, 0, this.DIM_X, this.DIM_Y);
-    this.asteroids.forEach(function (el) {
+    this.allObjects().forEach(function (el) {
       el.draw.call(el, ctx);
     });
   };
 
   Asteroids.Game.prototype.moveObjects = function () {
-    this.asteroids.forEach(function (el) {
+    this.allObjects().forEach(function (el) {
       el.move.call(el);
     });
   };
 
+  Asteroids.Game.prototype.wrap = function (pos) {
+    if (pos[0] < 0) {
+      pos[0] += this.DIM_X;
+    }
+    if (pos[1] < 0) {
+      pos[1] += this.DIM_Y;
+    }
+    if (pos[0] > this.DIM_X) {
+      pos[0] -= this.DIM_X;
+    }
+    if (pos[1] > this.DIM_Y) {
+      pos[1] -= this.DIM_Y;
+    }
+    return pos;
+  };
+
+  Asteroids.Game.prototype.checkCollisions = function () {
+    for (var i = 0; i < this.allObjects().length; i++) {
+      for (var j = i+1; j < this.allObjects().length; j++) {
+        if (this.allObjects()[i].isCollidedWith(this.allObjects()[j])) {
+          this.allObjects()[i].collideWith(this.allObjects()[j]);
+        }
+      }
+    }
+  };
+
+  Asteroids.Game.prototype.step = function () {
+      this.moveObjects();
+      this.checkCollisions();
+  };
+
+  Asteroids.Game.prototype.removeAsteroid = function (asteroid) {
+    var i = this.asteroids.indexOf(asteroid);
+    this.asteroids.splice(i, 1);
+  };
+
+
+
+
 })(this);
 
-// var test = new Asteroids.Game();
-//
-// var canvas = document.getElementById("canvas");
-// var ctx = canvas.getContext("2d");
-//
-// setInterval( function () {
-//   test.draw(ctx);
-//   test.moveObjects();
-// }, 16);
 
-// test.draw(ctx);
+
+
+
+
+
+
+
+
+
+
+
+
+
+//

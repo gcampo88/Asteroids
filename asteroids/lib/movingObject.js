@@ -7,6 +7,7 @@
    this.vel = argHash.vel;
    this.radius = argHash.radius;
    this.color = argHash.color;
+   this.game = argHash.game;
  };
 
  Asteroids.MovingObject.prototype.draw = function (ctx) {
@@ -28,6 +29,36 @@
  Asteroids.MovingObject.prototype.move = function () {
     this.pos = [this.pos[0] + this.vel[0],
       this.pos[1] + this.vel[1]];
+
+    this.pos = this.game.wrap(this.pos);
+ };
+
+
+ Asteroids.MovingObject.prototype.isCollidedWith = function (otherObject) {
+   if (Asteroids.Util.posDistance(this.pos, otherObject.pos) <
+   (this.radius + otherObject.radius)) {
+     return true;
+   } else {
+     return false;
+   }
+ };
+
+ Asteroids.MovingObject.prototype.collideWith = function (otherObject) {
+  //  duck typing
  };
 
 })(this);
+
+
+
+
+
+
+
+
+
+
+
+
+
+//
