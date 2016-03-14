@@ -46,6 +46,14 @@
     });
   };
 
+  Asteroids.Game.prototype.isOutOfBounds = function (pos) {
+    if ((pos[0] < 0) || (pos[1] < 0) || (pos[0] > this.DIM_X) || (pos[1] > this.DIM_Y)) {
+      return true;
+    } else {
+      return false;
+    }  
+  };
+
   Asteroids.Game.prototype.wrap = function (pos) {
     if (pos[0] < 0) {
       pos[0] += this.DIM_X;

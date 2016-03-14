@@ -8,7 +8,10 @@
     Asteroids.MovingObject.call(this, argsHash);
   };
 
+
   Asteroids.Util.inherits(Asteroids.Bullet, Asteroids.MovingObject);
+
+  Asteroids.Bullet.prototype.isWrappable = false;
 
   Asteroids.Bullet.prototype.collideWith = function (otherObject) {
     if (otherObject instanceof Asteroids.Asteroid) {

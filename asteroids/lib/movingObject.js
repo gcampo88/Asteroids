@@ -10,6 +10,8 @@
    this.game = argHash.game;
  };
 
+ Asteroids.MovingObject.prototype.isWrappable = true;
+
  Asteroids.MovingObject.prototype.draw = function (ctx) {
    ctx.fillStyle = this.color;
    ctx.beginPath();
@@ -26,11 +28,19 @@
    ctx.fill();
  };
 
+
  Asteroids.MovingObject.prototype.move = function () {
     this.pos = [this.pos[0] + this.vel[0],
       this.pos[1] + this.vel[1]];
 
-    this.pos = this.game.wrap(this.pos);
+    if (this.game.isOutOfBounds(this.pos)) {
+      if (this.isWrappable) {
+        this.pos = this.game.wrap(this.pos);
+      } else {
+        this.game.remove(this);
+      }
+    }
+
  };
 
 
